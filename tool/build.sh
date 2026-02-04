@@ -34,15 +34,4 @@ flutter pub get
 echo "🚀 Building for Web..."
 flutter build web --release
 
-# Force Overwrite index.html with manual version (Critical Fix)
-echo "🛡️ Forcing use of manual index.html..."
-mkdir -p build/web # Ensure directory exists
-cp web/index.html build/web/index.html
-
-# DEBUG: Verify output
-echo "📂 Listing build directory:"
-ls -R build/web
-echo "📄 Content of generated index.html:"
-cat build/web/index.html
-
 echo "✅ Build Complete!"
