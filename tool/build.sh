@@ -28,4 +28,6 @@ flutter pub get
 echo "🚀 Building for Web (HTML Renderer)..."
 flutter build web --release --web-renderer html --no-tree-shake-icons
 
-echo "✅ Build Complete!"
+# Force Overwrite index.html with manual version (Critical Fix)
+echo "🛡️ Forcing use of manual index.html..."
+cp web/index.html build/web/index.html
