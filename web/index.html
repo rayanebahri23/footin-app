@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -30,26 +31,25 @@
   <link rel="shortcut icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <title>FootIN</title>
   <link rel="manifest" href="manifest.json">
 
   <script src="flutter.js" defer></script>
 </head>
+
 <body style="background-color: #121212;">
-  <div id="loading" style="display: flex; justify-content: center; align-items: center; height: 100vh; color: #69f0ae; font-family: sans-serif;">
+  <div id="loading"
+    style="display: flex; justify-content: center; align-items: center; height: 100vh; color: #69f0ae; font-family: sans-serif;">
     <h1>Chargement de FootIN...</h1>
   </div>
   <script>
-    window.addEventListener('load', function(ev) {
+    window.addEventListener('load', function (ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: {{flutter_service_worker_version}},
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
+        onEntrypointLoaded: function (engineInitializer) {
+          engineInitializer.initializeEngine().then(function (appRunner) {
             document.getElementById('loading').remove();
             appRunner.runApp();
           });
@@ -58,4 +58,5 @@
     });
   </script>
 </body>
+
 </html>
