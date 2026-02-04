@@ -1,0 +1,12 @@
+{
+    "name": "footin_app",
+    "short_name": "FootIN",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#121212",
+    "theme_color": "#69f0ae",
+    "description": "FootIN - Recrutement Football Amateur",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": []
+}
