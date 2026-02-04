@@ -13,38 +13,36 @@ class FootInApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'FootIN V2',
+      title: 'FootIN',
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFF121212),
+        // NOUVEAU: Bleu Marine Profond
+        scaffoldBackgroundColor: const Color(0xFF0F172A),
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.greenAccent,
+          seedColor: const Color(0xFF00E5FF), // Cyan
           brightness: Brightness.dark,
-          primary: Colors.greenAccent,
-          secondary: Colors.greenAccent,
-          background: const Color(0xFF121212),
+          primary: const Color(0xFF00E5FF),
+          secondary: const Color(0xFF00E676), // Vert Néon
+          background: const Color(0xFF0F172A),
+          surface: const Color(0xFF1E293B),
         ),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF121212),
+          backgroundColor: Colors.transparent, // Transparent pour le gradient si besoin
           elevation: 0,
-          titleTextStyle: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
         ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Color(0xFF1E1E1E),
-          selectedItemColor: Colors.greenAccent,
-          unselectedItemColor: Colors.grey,
+          backgroundColor: Color(0xFF0F172A), // Match Scaffold
+          selectedItemColor: Color(0xFF00E5FF), // Cyan
+          unselectedItemColor: Colors.blueGrey,
+          type: BottomNavigationBarType.fixed,
         ),
         cardTheme: CardThemeData(
-          color: const Color(0xFF1E1E1E),
+          color: const Color(0xFF1E293B), // Bleu Navy plus clair
           elevation: 4,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: BorderSide(color: Colors.white.withOpacity(0.1), width: 1),
+            side: BorderSide(color: Colors.white.withOpacity(0.05), width: 1),
           ),
         ),
       ),
@@ -79,28 +77,28 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1E1E1E),
-        selectedItemColor: Colors.greenAccent,
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled),
-            label: 'Talents',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Scout',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Mon Espace',
-          ),
-        ],
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          border: Border(top: BorderSide(color: Color(0xFF1E293B), width: 1)),
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.flash_on),
+              label: 'Talents',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Scout',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              label: 'Profil',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -116,24 +114,24 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            const Icon(Icons.flash_on, color: Colors.greenAccent),
-            const SizedBox(width: 8),
-            Text(
-              'FOOTIN V2',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.5,
-                fontFamily: 'Roboto',
-              ),
-            ),
-          ],
+        // LOGO IMAGE
+        title: Image.asset(
+          'assets/logo.png',
+          height: 32, 
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) {
+            // Fallback si l'image ne charge pas
+            return const Text("FOOT IN", style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2));
+          },
         ),
+        centerTitle: false,
         actions: [
           IconButton(
-            icon: const Icon(Icons.filter_list, color: Colors.greenAccent),
+            icon: const Icon(Icons.notifications_none, color: Color(0xFF00E5FF)),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.filter_list, color: Color(0xFF00E5FF)),
             onPressed: () {},
           ),
         ],
@@ -141,13 +139,27 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+          // Banner Gradient Optionnel
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xFF00E676).withOpacity(0.1),
+                  const Color(0xFF00E5FF).withOpacity(0.0),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
             child: Text(
-              'Derniers Talents Vérifiés',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Colors.grey,
-                fontWeight: FontWeight.w600,
+              'RECOMMANDÉS POUR VOUS',
+              style: TextStyle(
+                color: const Color(0xFF00E5FF),
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                letterSpacing: 1.5,
               ),
             ),
           ),
@@ -190,21 +202,21 @@ class PlayerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isLibre = player['status'] == 'Libre';
-    final Color statusColor = isLibre ? Colors.greenAccent : Colors.redAccent;
-    final String statusText = isLibre ? 'LIBRE' : 'SOUS CONTRAT';
+    final Color statusColor = isLibre ? const Color(0xFF00E676) : const Color(0xFFFF1744); // Vert Néon vs Rouge Vif
 
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1E1E1E),
-        borderRadius: BorderRadius.circular(12),
+        color: const Color(0xFF1E293B), // Card BG
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: Colors.white.withOpacity(0.05),
         ),
+        // Glow Effect Subtil
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            blurRadius: 8,
+            color: const Color(0xFF000000).withOpacity(0.2),
+            blurRadius: 10,
             offset: const Offset(0, 4),
           ),
         ],
@@ -212,7 +224,7 @@ class PlayerCard extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
           onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -220,11 +232,12 @@ class PlayerCard extends StatelessWidget {
               children: [
                 // Avatar (Photo)
                 Container(
-                  width: 60,
-                  height: 60,
+                  width: 64,
+                  height: 64,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(color: statusColor.withOpacity(0.5), width: 2),
+                    // Bordure Cyan
+                    border: Border.all(color: const Color(0xFF00E5FF).withOpacity(0.3), width: 2),
                     image: DecorationImage(
                       image: NetworkImage(player['photo']),
                       fit: BoxFit.cover,
@@ -246,9 +259,10 @@ class PlayerCard extends StatelessWidget {
                                   child: Text(
                                     player['name'],
                                     style: const TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 17,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
+                                      fontFamily: 'Roboto',
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -263,8 +277,8 @@ class PlayerCard extends StatelessWidget {
                                     shape: BoxShape.circle,
                                     boxShadow: [
                                       BoxShadow(
-                                        color: statusColor.withOpacity(0.5),
-                                        blurRadius: 4,
+                                        color: statusColor.withOpacity(0.6),
+                                        blurRadius: 6,
                                         spreadRadius: 1,
                                       )
                                     ],
@@ -273,19 +287,18 @@ class PlayerCard extends StatelessWidget {
                               ],
                             ),
                           ),
-                          // Badge Âge
+                          // Badge Âge - Style Pillule
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.05),
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(color: Colors.white.withOpacity(0.1)),
+                              color: const Color(0xFF0F172A), // Darker Navy
+                              borderRadius: BorderRadius.circular(20),
                             ),
                             child: Text(
-                              "${player['age']} ANS",
+                              "${player['age']} ans",
                               style: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 10,
+                                color: Color(0xFF94A3B8), // Blue Grey
+                                fontSize: 11,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -294,13 +307,15 @@ class PlayerCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        player['position'],
+                        player['position'].toUpperCase(),
                         style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
+                          color: Color(0xFF00E5FF), // Cyan Accents
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.5,
                         ),
                       ),
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 8),
                       Row(
                         children: [
                           // Club Logo
@@ -308,16 +323,16 @@ class PlayerCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4),
                             child: Image.network(
                               player['logo'],
-                              width: 16,
-                              height: 16,
+                              width: 18,
+                              height: 18,
                             ),
                           ),
-                          const SizedBox(width: 6),
+                          const SizedBox(width: 8),
                           Text(
                             player['club'],
                             style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
+                              color: Color(0xFF94A3B8), // Blue Grey
+                              fontSize: 13,
                             ),
                           ),
                         ],
@@ -325,6 +340,8 @@ class PlayerCard extends StatelessWidget {
                     ],
                   ),
                 ),
+                // Chevron
+                const Icon(Icons.chevron_right, color: Color(0xFF334155)),
               ],
             ),
           ),
@@ -342,107 +359,125 @@ class PlayerDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF0F172A),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.share, color: Colors.white),
+            onPressed: () {},
+          ),
+        ],
       ),
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header Image
-            Container(
-              height: 350,
+            // Header Image avec Gradient Overlay
+            SizedBox(
+              height: 400,
               width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(player['photo']),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.4),
-                    BlendMode.darken,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.network(
+                    player['photo'],
+                    fit: BoxFit.cover,
                   ),
-                ),
-              ),
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Color(0xFF121212)],
-                    stops: [0.6, 1.0],
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF121212),
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.greenAccent, width: 2),
-                      ),
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage: NetworkImage(player['photo']),
+                  Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent, 
+                          Color(0xFF0F172A)
+                        ],
+                        stops: [0.5, 0.95],
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    Text(
-                      player['name'],
-                      style: const TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                  // Content Overlay
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Column(
                       children: [
-                        Image.network(player['logo'], width: 24, height: 24),
-                        const SizedBox(width: 8),
-                        Text(
-                          "${player['club']} • ${player['position']}",
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
+                        Container(
+                          padding: const EdgeInsets.all(3),
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              colors: [Color(0xFF00E676), Color(0xFF00E5FF)],
+                            ),
+                          ),
+                          child: CircleAvatar(
+                            radius: 50,
+                            backgroundImage: NetworkImage(player['photo']),
                           ),
                         ),
+                        const SizedBox(height: 16),
+                        Text(
+                          player['name'],
+                          style: const TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            letterSpacing: -0.5,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.network(player['logo'], width: 24, height: 24),
+                            const SizedBox(width: 8),
+                            Text(
+                              "${player['club']} • ${player['position']}",
+                              style: const TextStyle(
+                                color: Color(0xFF94A3B8),
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 30),
                       ],
                     ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             
             // Content
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Stats Section
+                  // Stats Section Grid
                   const Text(
-                    "STATS SAISON",
+                    "SAISON ACTUELLE",
                     style: TextStyle(
-                      color: Colors.greenAccent,
+                      color: Color(0xFF00E5FF),
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.2,
+                      fontSize: 12,
                     ),
                   ),
                   const SizedBox(height: 16),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildStatCard("MATCHS", "24"),
-                      _buildStatCard("BUTS", "8"),
-                      _buildStatCard("MINUTES", "1840"),
+                      Expanded(child: _buildStatCard("MATCHS", "24")),
+                      const SizedBox(width: 12),
+                      Expanded(child: _buildStatCard("BUTS", "8")),
+                      const SizedBox(width: 12),
+                      Expanded(child: _buildStatCard("MINUTES", "1840")),
                     ],
                   ),
 
@@ -450,49 +485,62 @@ class PlayerDetailScreen extends StatelessWidget {
                   
                   // Video Section
                   const Text(
-                    "HIGHLIGHTS",
+                    "HIGHLIGHTS VIDÉO",
                     style: TextStyle(
-                      color: Colors.greenAccent,
+                      color: Color(0xFF00E5FF),
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.2,
+                      fontSize: 12,
                     ),
                   ),
                   const SizedBox(height: 16),
                   Container(
                     height: 200,
-                    width: double.infinity,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1E1E1E),
+                      color: const Color(0xFF1E293B),
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.white.withOpacity(0.05)),
+                      image: const DecorationImage(
+                        image: NetworkImage("https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2993&auto=format&fit=crop"), // Placeholder Field
+                        fit: BoxFit.cover,
+                        opacity: 0.3,
+                      ),
                     ),
                     child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.play_circle_fill, size: 60, color: Colors.greenAccent.withOpacity(0.8)),
-                          const SizedBox(height: 16),
-                          const Text(
-                            "Voir sur YouTube",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF00E5FF).withOpacity(0.2),
+                          shape: BoxShape.circle,
+                          border: Border.all(color: const Color(0xFF00E5FF)),
+                        ),
+                        child: const Icon(Icons.play_arrow, size: 40, color: Colors.white),
                       ),
                     ),
                   ),
 
                   const SizedBox(height: 40),
 
-                  // Call to Action
-                  SizedBox(
-                    width: double.infinity,
+                  // Call to Action Gradient Button
+                  Container(
                     height: 56,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF00E676), Color(0xFF00E5FF)],
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF00E5FF).withOpacity(0.4),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
+                        )
+                      ],
+                    ),
                     child: ElevatedButton(
-                      onPressed: () {}, // Inactif
+                      onPressed: () {}, 
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.greenAccent,
-                        foregroundColor: Colors.black,
-                        elevation: 0,
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -502,6 +550,8 @@ class PlayerDetailScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
+                          color: Color(0xFF0F172A), // Dark Text on Bright Button
+                          letterSpacing: 0.5,
                         ),
                       ),
                     ),
@@ -518,9 +568,9 @@ class PlayerDetailScreen extends StatelessWidget {
 
   Widget _buildStatCard(String label, String value) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1E1E1E),
+        color: const Color(0xFF1E293B),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white.withOpacity(0.05)),
       ),
@@ -529,7 +579,7 @@ class PlayerDetailScreen extends StatelessWidget {
           Text(
             value,
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 22,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
@@ -538,8 +588,8 @@ class PlayerDetailScreen extends StatelessWidget {
           Text(
             label,
             style: const TextStyle(
-              fontSize: 12,
-              color: Colors.grey,
+              fontSize: 10,
+              color: Color(0xFF64748B), // Slate
               fontWeight: FontWeight.bold,
             ),
           ),
