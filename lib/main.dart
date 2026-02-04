@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'data/players.dart';
 
 void main() {
   runApp(const FootInApp());
@@ -110,26 +111,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // DONNÉES FACTICES - MARKETPLACE
-    final List<Map<String, String>> players = [
-      {
-        'name': 'Amine Gouiri',
-        'position': 'Milieu Offensif',
-        'club': 'US Clichy',
-        'status': 'Libre',
-      },
-      {
-        'name': 'Rayan Cherki',
-        'position': 'Ailier Droit',
-        'club': 'AS Saint-Priest',
-        'status': 'Libre',
-      },
-      {
-        'name': 'Kylian Mbappé',
-        'position': 'Attaquant',
-        'club': 'AS Bondy',
-        'status': 'Libre', // Pour l'exemple ;)
-      },
-    ];
+    // DONNÉES RÉELLES (Versailles, Sochaux, Dijon)
+    final List<Map<String, dynamic>> players = kPlayers;
 
     return Scaffold(
       appBar: AppBar(
@@ -175,10 +158,10 @@ class HomeScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final player = players[index];
                 return PlayerCard(
-                  name: player['name']!,
-                  position: player['position']!,
-                  club: player['club']!,
-                  status: player['status']!,
+                  name: player['name'] as String,
+                  position: player['position'] as String,
+                  club: player['club'] as String,
+                  status: "${player['age']} ANS", // Affiche l'âge dans le badge
                 );
               },
             ),
