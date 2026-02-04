@@ -29,7 +29,7 @@ echo "📦 Installing Dependencies..."
 flutter pub get
 
 # Build
-echo "🚀 Building for Web..."
-flutter build web --release --no-tree-shake-icons
+echo "🚀 Building for Web (HTML Renderer)..."
+flutter build web --release --web-renderer html --no-tree-shake-icons
 
 echo "✅ Build Complete!"
