@@ -13,37 +13,39 @@ class FootInApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'FootIN',
+      title: 'FootIN V3',
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
-        // NOUVEAU: Bleu Marine Profond
-        scaffoldBackgroundColor: const Color(0xFF0F172A),
+        // 1. Amélioration du Thème Global
+        scaffoldBackgroundColor: const Color(0xFF0F172A), // Bleu Nuit Profond
+        fontFamily: 'Roboto', // Police par défaut
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF00E5FF), // Cyan
+          seedColor: const Color(0xFF00FF88), // Vert Néon
           brightness: Brightness.dark,
-          primary: const Color(0xFF00E5FF),
-          secondary: const Color(0xFF00E676), // Vert Néon
+          primary: const Color(0xFF00FF88),
+          secondary: const Color(0xFF00FF88),
           background: const Color(0xFF0F172A),
           surface: const Color(0xFF1E293B),
         ),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.transparent, // Transparent pour le gradient si besoin
+          backgroundColor: Colors.transparent,
           elevation: 0,
+          centerTitle: false,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.0,
+          ),
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Color(0xFF0F172A), // Match Scaffold
-          selectedItemColor: Color(0xFF00E5FF), // Cyan
+          backgroundColor: Color(0xFF0F172A),
+          selectedItemColor: Color(0xFF00FF88),
           unselectedItemColor: Colors.blueGrey,
           type: BottomNavigationBarType.fixed,
-        ),
-        cardTheme: CardThemeData(
-          color: const Color(0xFF1E293B), // Bleu Navy plus clair
-          elevation: 4,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-            side: BorderSide(color: Colors.white.withOpacity(0.05), width: 1),
-          ),
+          showUnselectedLabels: false,
         ),
       ),
       home: const MainScreen(),
@@ -86,15 +88,15 @@ class _MainScreenState extends State<MainScreen> {
           onTap: _onItemTapped,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.flash_on),
+              icon: Icon(Icons.flash_on_rounded),
               label: 'Talents',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: Icon(Icons.search_rounded),
               label: 'Scout',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
+              icon: Icon(Icons.person_rounded),
               label: 'Profil',
             ),
           ],
@@ -109,29 +111,26 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Import des données réelles
     final List<Map<String, dynamic>> players = kPlayers;
 
     return Scaffold(
       appBar: AppBar(
-        // LOGO IMAGE
+        // Utilisation du logo ou texte stylisé
         title: Image.asset(
           'assets/logo.png',
-          height: 32, 
+          height: 32,
           fit: BoxFit.contain,
           errorBuilder: (context, error, stackTrace) {
-            // Fallback si l'image ne charge pas
-            return const Text("FOOT IN", style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2));
+            return const Text("FOOTIN", style: TextStyle(fontFamily: 'Orbitron', fontWeight: FontWeight.w900));
           },
         ),
-        centerTitle: false,
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none, color: Color(0xFF00E5FF)),
+            icon: const Icon(Icons.notifications_none_rounded),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.filter_list, color: Color(0xFF00E5FF)),
+            icon: const Icon(Icons.tune_rounded), // Filter icon stylisé
             onPressed: () {},
           ),
         ],
@@ -139,33 +138,21 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Banner Gradient Optionnel
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  const Color(0xFF00E676).withOpacity(0.1),
-                  const Color(0xFF00E5FF).withOpacity(0.0),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Text(
-              'RECOMMANDÉS POUR VOUS',
+              'DERNIERS TALENTS',
               style: TextStyle(
-                color: const Color(0xFF00E5FF),
-                fontWeight: FontWeight.bold,
+                color: const Color(0xFF00FF88),
                 fontSize: 12,
+                fontWeight: FontWeight.bold,
                 letterSpacing: 1.5,
               ),
             ),
           ),
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: players.length,
               itemBuilder: (context, index) {
                 final player = players[index];
@@ -189,6 +176,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+// 2. Redesign de la Liste des Joueurs (PlayerCard)
 class PlayerCard extends StatelessWidget {
   final Map<String, dynamic> player;
   final VoidCallback onTap;
@@ -201,23 +189,16 @@ class PlayerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isLibre = player['status'] == 'Libre';
-    final Color statusColor = isLibre ? const Color(0xFF00E676) : const Color(0xFFFF1744); // Vert Néon vs Rouge Vif
-
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFF1E293B), // Card BG
+        color: const Color(0xFF1E293B), // Fond Carte
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.05),
-        ),
-        // Glow Effect Subtil
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF000000).withOpacity(0.2),
-            blurRadius: 10,
+            color: Colors.black.withOpacity(0.25),
             offset: const Offset(0, 4),
+            blurRadius: 10,
           ),
         ],
       ),
@@ -227,17 +208,19 @@ class PlayerCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(12.0),
             child: Row(
               children: [
-                // Avatar (Photo)
+                // Gauche: Photo
                 Container(
-                  width: 64,
-                  height: 64,
+                  width: 56,
+                  height: 56,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    // Bordure Cyan
-                    border: Border.all(color: const Color(0xFF00E5FF).withOpacity(0.3), width: 2),
+                    border: Border.all(
+                      color: const Color(0xFF00FF88), // Bordure Verte Fine
+                      width: 1.5,
+                    ),
                     image: DecorationImage(
                       image: NetworkImage(player['photo']),
                       fit: BoxFit.cover,
@@ -245,103 +228,72 @@ class PlayerCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 16),
-                // Infos
+                
+                // Centre: Infos
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Text(
+                        player['name'],
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 4),
                       Row(
                         children: [
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    player['name'],
-                                    style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontFamily: 'Roboto',
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                // Point de statut
-                                Container(
-                                  width: 8,
-                                  height: 8,
-                                  decoration: BoxDecoration(
-                                    color: statusColor,
-                                    shape: BoxShape.circle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: statusColor.withOpacity(0.6),
-                                        blurRadius: 6,
-                                        spreadRadius: 1,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
+                          Image.network(player['logo'], width: 14, height: 14),
+                          const SizedBox(width: 6),
+                          Text(
+                            player['club'],
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
                             ),
-                          ),
-                          // Badge Âge - Style Pillule
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF0F172A), // Darker Navy
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Text(
-                              "${player['age']} ans",
-                              style: const TextStyle(
-                                color: Color(0xFF94A3B8), // Blue Grey
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
+                      // Poste en Vert Majuscule
                       Text(
                         player['position'].toUpperCase(),
                         style: const TextStyle(
-                          color: Color(0xFF00E5FF), // Cyan Accents
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF00FF88),
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
                           letterSpacing: 0.5,
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          // Club Logo
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(4),
-                            child: Image.network(
-                              player['logo'],
-                              width: 18,
-                              height: 18,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            player['club'],
-                            style: const TextStyle(
-                              color: Color(0xFF94A3B8), // Blue Grey
-                              fontSize: 13,
-                            ),
-                          ),
-                        ],
                       ),
                     ],
                   ),
                 ),
-                // Chevron
-                const Icon(Icons.chevron_right, color: Color(0xFF334155)),
+                
+                // Droite: Badge Note (Touche Pro)
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF0F172A), // Sombre
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white.withOpacity(0.1)),
+                  ),
+                  child: Text(
+                    "${player['rating'] ?? '6.5'}", // Valeur fictive si null
+                    style: const TextStyle(
+                      color: Color(0xFF00FF88),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -351,6 +303,7 @@ class PlayerCard extends StatelessWidget {
   }
 }
 
+// 3. Redesign de l'Écran Détail
 class PlayerDetailScreen extends StatelessWidget {
   final Map<String, dynamic> player;
 
@@ -360,197 +313,189 @@ class PlayerDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF0F172A),
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.share, color: Colors.white),
+            icon: const Icon(Icons.share_rounded),
             onPressed: () {},
           ),
         ],
       ),
-      extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header Image avec Gradient Overlay
-            SizedBox(
-              height: 400,
+            // Header Immersif avec Gradient
+            Container(
+              height: 280, // Un peu plus grand pour l'immersion
               width: double.infinity,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xFF004D2C), // Vert Foncé
+                    Color(0xFF0F172A), // Bleu Nuit
+                  ],
+                ),
+              ),
               child: Stack(
-                fit: StackFit.expand,
+                alignment: Alignment.center,
                 children: [
-                  Image.network(
-                    player['photo'],
-                    fit: BoxFit.cover,
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.transparent, 
-                          Color(0xFF0F172A)
-                        ],
-                        stops: [0.5, 0.95],
-                      ),
-                    ),
-                  ),
-                  // Content Overlay
+                  // Photo centrée qui ressort
                   Positioned(
                     bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(3),
-                          decoration: const BoxDecoration(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF00FF88).withOpacity(0.3),
+                            blurRadius: 40,
+                            spreadRadius: 5,
+                          ),
+                        ],
+                      ),
+                      child: CircleAvatar(
+                        radius: 80,
+                        backgroundColor: const Color(0xFF0F172A),
+                        backgroundImage: NetworkImage(player['photo']),
+                        child: Container(
+                          decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                              colors: [Color(0xFF00E676), Color(0xFF00E5FF)],
-                            ),
-                          ),
-                          child: CircleAvatar(
-                            radius: 50,
-                            backgroundImage: NetworkImage(player['photo']),
+                            border: Border.all(color: const Color(0xFF00FF88), width: 3),
                           ),
                         ),
-                        const SizedBox(height: 16),
-                        Text(
-                          player['name'],
-                          style: const TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            letterSpacing: -0.5,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.network(player['logo'], width: 24, height: 24),
-                            const SizedBox(width: 8),
-                            Text(
-                              "${player['club']} • ${player['position']}",
-                              style: const TextStyle(
-                                color: Color(0xFF94A3B8),
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 30),
-                      ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
             
-            // Content
+            const SizedBox(height: 20),
+            
+            // Nom et Club
+            Text(
+              player['name'].toUpperCase(),
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
+                letterSpacing: 1.0,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.network(player['logo'], width: 24, height: 24),
+                const SizedBox(width: 8),
+                Text(
+                  player['club'],
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+            
+            const SizedBox(height: 32),
+            
+            // Stats Stylisées (Glassmorphism)
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
                 children: [
-                  // Stats Section Grid
+                  Expanded(child: _buildGlassStat("MATCHS", "24")),
+                  const SizedBox(width: 12),
+                  Expanded(child: _buildGlassStat("BUTS", "8")), // Stats fictives
+                  const SizedBox(width: 12),
+                  Expanded(child: _buildGlassStat("NOTE", "${player['rating']}")),
+                ],
+              ),
+            ),
+            
+            const SizedBox(height: 32),
+            
+            // Zone Vidéo (Appel à l'action)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   const Text(
-                    "SAISON ACTUELLE",
+                    "HIGHLIGHTS",
                     style: TextStyle(
-                      color: Color(0xFF00E5FF),
+                      color: Colors.white,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2,
-                      fontSize: 12,
+                      letterSpacing: 1.0,
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(child: _buildStatCard("MATCHS", "24")),
-                      const SizedBox(width: 12),
-                      Expanded(child: _buildStatCard("BUTS", "8")),
-                      const SizedBox(width: 12),
-                      Expanded(child: _buildStatCard("MINUTES", "1840")),
-                    ],
-                  ),
-
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 12),
                   
-                  // Video Section
-                  const Text(
-                    "HIGHLIGHTS VIDÉO",
-                    style: TextStyle(
-                      color: Color(0xFF00E5FF),
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2,
-                      fontSize: 12,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
+                  // Container noir pur avec bordure pointillée (simulée ici par une bordure grise fine et style technique)
                   Container(
-                    height: 200,
+                    height: 180,
+                    width: double.infinity,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1E293B),
-                      borderRadius: BorderRadius.circular(16),
-                      image: const DecorationImage(
-                        image: NetworkImage("https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2993&auto=format&fit=crop"), // Placeholder Field
-                        fit: BoxFit.cover,
-                        opacity: 0.3,
-                      ),
-                    ),
-                    child: Center(
-                      child: Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF00E5FF).withOpacity(0.2),
-                          shape: BoxShape.circle,
-                          border: Border.all(color: const Color(0xFF00E5FF)),
-                        ),
-                        child: const Icon(Icons.play_arrow, size: 40, color: Colors.white),
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 40),
-
-                  // Call to Action Gradient Button
-                  Container(
-                    height: 56,
-                    decoration: BoxDecoration(
+                      color: Colors.black, // Noir pur
                       borderRadius: BorderRadius.circular(12),
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF00E676), Color(0xFF00E5FF)],
+                      border: Border.all(
+                        color: Colors.grey.withOpacity(0.3),
+                        width: 1.5,
+                        // StrokeAlign.center -> Pourrait être DashPathBorder avec un package, mais Restons simple
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF00E5FF).withOpacity(0.4),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
-                        )
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.cloud_upload_outlined,
+                          size: 48,
+                          color: Colors.grey.shade600,
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          "En attente des Highlights",
+                          style: TextStyle(
+                            color: Colors.grey.shade600,
+                            fontSize: 14,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
                       ],
                     ),
+                  ),
+                  
+                  const SizedBox(height: 30),
+                  
+                  // Bouton Action
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56,
                     child: ElevatedButton(
-                      onPressed: () {}, 
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
+                        backgroundColor: const Color(0xFF00FF88),
+                        foregroundColor: const Color(0xFF0F172A), // Texte sombre sur bouton clair
+                        elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                       child: const Text(
-                        "CONTACTER LE JOUEUR",
+                        "CONTACTER L'AGENT",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF0F172A), // Dark Text on Bright Button
                           letterSpacing: 0.5,
                         ),
                       ),
@@ -566,31 +511,35 @@ class PlayerDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildStatCard(String label, String value) {
+  Widget _buildGlassStat(String label, String value) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        color: Colors.white.withOpacity(0.05), // Glassmorphism fond
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Colors.white.withOpacity(0.1), // Bordure fine semi-transparente
+          width: 1,
+        ),
       ),
       child: Column(
         children: [
           Text(
             value,
             style: const TextStyle(
-              fontSize: 22,
+              fontSize: 24, // TRÈS GROS
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Color(0xFF00FF88), // Vert
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 8),
           Text(
             label,
-            style: const TextStyle(
-              fontSize: 10,
-              color: Color(0xFF64748B), // Slate
+            style: TextStyle(
+              fontSize: 11,
               fontWeight: FontWeight.bold,
+              color: Colors.grey.shade400,
+              letterSpacing: 1.0,
             ),
           ),
         ],
