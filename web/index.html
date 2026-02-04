@@ -40,10 +40,21 @@
 </head>
 
 <body style="background-color: #121212; color: #69f0ae;">
+  <script>
+    // Global Error Handler for Mobile/Web Debugging
+    window.onerror = function (message, source, lineno, colno, error) {
+      document.getElementById('loading').innerHTML = `
+        <h1 style="color:red">Erreur Fatale ☠️</h1>
+        <p style="color:white">${message}</p>
+        <p style="color:grey; font-size:0.8em">${source}:${lineno}</p>
+      `;
+    };
+  </script>
   <div id="loading"
     style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif;">
     <h1 style="font-size: 2em;">FootIN</h1>
     <p>Chargement...</p>
+    <div id="error-log" style="color: red; margin-top: 20px; text-align: center; white-space: pre-wrap;"></div>
   </div>
   <script>
     window.addEventListener('load', function (ev) {

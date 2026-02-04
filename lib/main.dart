@@ -121,7 +121,7 @@ class HomeScreen extends StatelessWidget {
             const Icon(Icons.flash_on, color: Colors.greenAccent),
             const SizedBox(width: 8),
             Text(
-              'FOOTIN',
+              'FOOTIN V2',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
