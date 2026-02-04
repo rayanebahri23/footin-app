@@ -1,0 +1,28 @@
+{
+  "name": "FootIN Flutter Env",
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/flutter:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Dart-Code.flutter",
+        "Dart-Code.dart-code",
+        "Nash.awesome-flutter-snippets"
+      ]
+    }
+  },
+  "forwardPorts": [
+    8080
+  ],
+  "postCreateCommand": "flutter create . --platforms web && flutter pub get",
+  "remoteUser": "vscode"
+}
