@@ -1,84 +1,37 @@
 
 final List<Map<String, dynamic>> kPlayers = [
-  // --- FC Versailles 78 ---
-  // Gardiens
-  {'name': 'Sébastien Rénot', 'position': 'Gardien', 'club': 'FC Versailles', 'age': 34, 'rating': 72},
-  {'name': 'Hugo Barbet', 'position': 'Gardien', 'club': 'FC Versailles', 'age': 22, 'rating': 65},
-  {'name': 'Nathan Yavorsky', 'position': 'Gardien', 'club': 'FC Versailles', 'age': 22, 'rating': 64},
-  // Défenseurs
-  {'name': 'Jérémi Santini', 'position': 'Défenseur', 'club': 'FC Versailles', 'age': 26, 'rating': 68},
-  {'name': 'Yannick M\'Boné', 'position': 'Défenseur', 'club': 'FC Versailles', 'age': 31, 'rating': 70},
-  {'name': 'Raphaël Calvet', 'position': 'Défenseur', 'club': 'FC Versailles', 'age': 30, 'rating': 69},
-  {'name': 'Mathias Fischer', 'position': 'Défenseur', 'club': 'FC Versailles', 'age': 26, 'rating': 67},
-  {'name': 'Melih Altikulac', 'position': 'Défenseur', 'club': 'FC Versailles', 'age': 22, 'rating': 65},
-  {'name': 'Romain Basque', 'position': 'Défenseur', 'club': 'FC Versailles', 'age': 29, 'rating': 71},
-  {'name': 'Djamal Moussadek', 'position': 'Défenseur', 'club': 'FC Versailles', 'age': 22, 'rating': 68},
-  {'name': 'Ryan Tchato', 'position': 'Défenseur', 'club': 'FC Versailles', 'age': 20, 'rating': 66},
-  // Milieux
-  {'name': 'Tom Renaud', 'position': 'Milieu', 'club': 'FC Versailles', 'age': 24, 'rating': 68},
-  {'name': 'Jawed Kalai', 'position': 'Milieu', 'club': 'FC Versailles', 'age': 24, 'rating': 66},
-  {'name': 'Samir Ben Brahim', 'position': 'Milieu', 'club': 'FC Versailles', 'age': 22, 'rating': 67},
-  {'name': 'Bilal Hend', 'position': 'Milieu', 'club': 'FC Versailles', 'age': 25, 'rating': 65},
-  {'name': 'Mohamed Traoré', 'position': 'Milieu', 'club': 'FC Versailles', 'age': 31, 'rating': 69},
-  {'name': 'Ali Ouchen', 'position': 'Milieu', 'club': 'FC Versailles', 'age': 22, 'rating': 64},
-  // Attaquants
-  {'name': 'Shelton Guillaume', 'position': 'Attaquant', 'club': 'FC Versailles', 'age': 27, 'rating': 70},
-  {'name': 'Cédric Odzoumo', 'position': 'Attaquant', 'club': 'FC Versailles', 'age': 29, 'rating': 68},
-  {'name': 'Patrick Koffi', 'position': 'Attaquant', 'club': 'FC Versailles', 'age': 23, 'rating': 66},
-  {'name': 'Karim Tlili', 'position': 'Attaquant', 'club': 'FC Versailles', 'age': 35, 'rating': 67},
-  {'name': 'Ibrahima Doucouré', 'position': 'Attaquant', 'club': 'FC Versailles', 'age': 20, 'rating': 63},
-  {'name': 'Jonathan Kodjia', 'position': 'Attaquant', 'club': 'FC Versailles', 'age': 35, 'rating': 74},
+  // --- LOCAL ID ---
+  // US Clichy
+    {'name': 'Sofiane B.', 'position': 'Milieu Défensif', 'club': 'US Clichy', 'age': 19, 'rating': 62, 'status': 'Libre', 'photo': 'https://i.pravatar.cc/150?img=1', 'logo': 'https://ui-avatars.com/api/?name=USC&background=EF4444&color=fff'},
+    {'name': 'Mehdi K.', 'position': 'Ailier Gauche', 'club': 'US Clichy', 'age': 20, 'rating': 64, 'status': 'Libre', 'photo': 'https://i.pravatar.cc/150?img=2', 'logo': 'https://ui-avatars.com/api/?name=USC&background=EF4444&color=fff'},
+  
+  // Red Star FC (B)
+    {'name': 'Mamadou D.', 'position': 'Défenseur Central', 'club': 'Red Star FC (B)', 'age': 18, 'rating': 65, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=3', 'logo': 'https://ui-avatars.com/api/?name=RED&background=047857&color=fff'},
+    {'name': 'Kylian M.', 'position': 'Buteur', 'club': 'Red Star FC (B)', 'age': 19, 'rating': 67, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=4', 'logo': 'https://ui-avatars.com/api/?name=RED&background=047857&color=fff'},
 
-  // --- FC Sochaux-Montbéliard ---
-  // Gardiens
-  {'name': 'Mehdi Jeannin', 'position': 'Gardien', 'club': 'FC Sochaux', 'age': 33, 'rating': 73},
-  {'name': 'Alexandre Pierre', 'position': 'Gardien', 'club': 'FC Sochaux', 'age': 23, 'rating': 66},
-  {'name': 'Manu Agro', 'position': 'Gardien', 'club': 'FC Sochaux', 'age': 22, 'rating': 64},
-  // Défenseurs
-  {'name': 'Mathieu Peybernes', 'position': 'Défenseur', 'club': 'FC Sochaux', 'age': 34, 'rating': 74},
-  {'name': 'Benjaloud Youssouf', 'position': 'Défenseur', 'club': 'FC Sochaux', 'age': 30, 'rating': 71},
-  {'name': 'Jules Mendy', 'position': 'Défenseur', 'club': 'FC Sochaux', 'age': 30, 'rating': 69},
-  {'name': 'Dylan Tavares', 'position': 'Défenseur', 'club': 'FC Sochaux', 'age': 28, 'rating': 70},
-  {'name': 'Julien Da Costa', 'position': 'Défenseur', 'club': 'FC Sochaux', 'age': 28, 'rating': 69},
-  {'name': 'Arthur Vitelli', 'position': 'Défenseur', 'club': 'FC Sochaux', 'age': 24, 'rating': 67},
-  // Milieux
-  {'name': 'Gaëtan Weissbeck', 'position': 'Milieu', 'club': 'FC Sochaux', 'age': 28, 'rating': 75},
-  {'name': 'Samy Baghdadi', 'position': 'Milieu', 'club': 'FC Sochaux', 'age': 27, 'rating': 68},
-  {'name': 'Benjamin Gomel', 'position': 'Milieu', 'club': 'FC Sochaux', 'age': 26, 'rating': 69},
-  {'name': 'Tony Mauricio', 'position': 'Milieu', 'club': 'FC Sochaux', 'age': 30, 'rating': 73},
-  {'name': 'Kevin Hoggas', 'position': 'Milieu', 'club': 'FC Sochaux', 'age': 33, 'rating': 71},
-  {'name': 'Roli Pereira De Sa', 'position': 'Milieu', 'club': 'FC Sochaux', 'age': 28, 'rating': 70},
-  {'name': 'Jonathan Mexique', 'position': 'Milieu', 'club': 'FC Sochaux', 'age': 29, 'rating': 72},
-  {'name': 'Dimitri Liénard', 'position': 'Milieu', 'club': 'FC Sochaux', 'age': 36, 'rating': 74},
-  {'name': 'Julien Masson', 'position': 'Milieu', 'club': 'FC Sochaux', 'age': 26, 'rating': 68},
-  {'name': 'Diego Michel', 'position': 'Milieu', 'club': 'FC Sochaux', 'age': 27, 'rating': 69},
-  // Attaquants
-  {'name': 'Moussa Doumbia', 'position': 'Attaquant', 'club': 'FC Sochaux', 'age': 30, 'rating': 73},
-  {'name': 'Kapitbafan Djoco', 'position': 'Attaquant', 'club': 'FC Sochaux', 'age': 29, 'rating': 67},
-  {'name': 'Julien Vétro', 'position': 'Attaquant', 'club': 'FC Sochaux', 'age': 20, 'rating': 65},
+  // Racing CFF
+    {'name': 'Paul V.', 'position': 'Milieu Relayeur', 'club': 'Racing CFF', 'age': 21, 'rating': 66, 'status': 'Libre', 'photo': 'https://i.pravatar.cc/150?img=5', 'logo': 'https://ui-avatars.com/api/?name=RACING&background=3B82F6&color=fff'},
+  
+  // FCM Aubervilliers
+    {'name': 'Ibrahim S.', 'position': 'Latéral Droit', 'club': 'FCM Aubervilliers', 'age': 22, 'rating': 63, 'status': 'Libre', 'photo': 'https://i.pravatar.cc/150?img=6', 'logo': 'https://ui-avatars.com/api/?name=FCM&background=F59E0B&color=fff'},
+
+
+  // --- FC Versailles 78 ---
+  {'name': 'Sébastien Rénot', 'position': 'Gardien', 'club': 'FC Versailles', 'age': 34, 'rating': 72, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=11', 'logo': 'https://ui-avatars.com/api/?name=FCV&background=1D4ED8&color=fff'},
+  {'name': 'Jérémi Santini', 'position': 'Défenseur', 'club': 'FC Versailles', 'age': 26, 'rating': 68, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=12', 'logo': 'https://ui-avatars.com/api/?name=FCV&background=1D4ED8&color=fff'},
+  {'name': 'Romain Basque', 'position': 'Défenseur', 'club': 'FC Versailles', 'age': 29, 'rating': 71, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=13', 'logo': 'https://ui-avatars.com/api/?name=FCV&background=1D4ED8&color=fff'},
+  {'name': 'Tom Renaud', 'position': 'Milieu', 'club': 'FC Versailles', 'age': 24, 'rating': 68, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=14', 'logo': 'https://ui-avatars.com/api/?name=FCV&background=1D4ED8&color=fff'},
+  {'name': 'Shelton Guillaume', 'position': 'Attaquant', 'club': 'FC Versailles', 'age': 27, 'rating': 70, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=15', 'logo': 'https://ui-avatars.com/api/?name=FCV&background=1D4ED8&color=fff'},
+
+  // --- FC Sochaux ---
+  {'name': 'Mehdi Jeannin', 'position': 'Gardien', 'club': 'FC Sochaux', 'age': 33, 'rating': 73, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=20', 'logo': 'https://ui-avatars.com/api/?name=FCSM&background=FBBF24&color=000'},
+  {'name': 'Mathieu Peybernes', 'position': 'Défenseur', 'club': 'FC Sochaux', 'age': 34, 'rating': 74, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=21', 'logo': 'https://ui-avatars.com/api/?name=FCSM&background=FBBF24&color=000'},
+  {'name': 'Gaëtan Weissbeck', 'position': 'Milieu', 'club': 'FC Sochaux', 'age': 28, 'rating': 75, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=22', 'logo': 'https://ui-avatars.com/api/?name=FCSM&background=FBBF24&color=000'},
+  {'name': 'Moussa Doumbia', 'position': 'Attaquant', 'club': 'FC Sochaux', 'age': 30, 'rating': 73, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=23', 'logo': 'https://ui-avatars.com/api/?name=FCSM&background=FBBF24&color=000'},
 
   // --- Dijon FCO ---
-  // Gardiens
-  {'name': 'Paul Delecroix', 'position': 'Gardien', 'club': 'Dijon FCO', 'age': 36, 'rating': 72},
-  {'name': 'Lenny Montfort', 'position': 'Gardien', 'club': 'Dijon FCO', 'age': 22, 'rating': 66},
-  // Défenseurs
-  {'name': 'Daniel Congré', 'position': 'Défenseur', 'club': 'Dijon FCO', 'age': 40, 'rating': 75},
-  {'name': 'Quentin Bernard', 'position': 'Défenseur', 'club': 'Dijon FCO', 'age': 35, 'rating': 71},
-  {'name': 'Souleymane Cissé', 'position': 'Défenseur', 'club': 'Dijon FCO', 'age': 21, 'rating': 67},
-  {'name': 'Ismail Diallo', 'position': 'Défenseur', 'club': 'Dijon FCO', 'age': 21, 'rating': 68},
-  {'name': 'Waly Diouf', 'position': 'Défenseur', 'club': 'Dijon FCO', 'age': 27, 'rating': 69},
-  {'name': 'Lenny Lacroix', 'position': 'Défenseur', 'club': 'Dijon FCO', 'age': 21, 'rating': 65},
-  // Milieux
-  {'name': 'Bersant Celina', 'position': 'Milieu', 'club': 'Dijon FCO', 'age': 28, 'rating': 74},
-  {'name': 'Mickaël Barreto', 'position': 'Milieu', 'club': 'Dijon FCO', 'age': 34, 'rating': 72},
-  {'name': 'Jordan Marié', 'position': 'Milieu', 'club': 'Dijon FCO', 'age': 33, 'rating': 70},
-  {'name': 'Paul Bellon', 'position': 'Milieu', 'club': 'Dijon FCO', 'age': 25, 'rating': 68},
-  {'name': 'Yanis Chahid', 'position': 'Milieu', 'club': 'Dijon FCO', 'age': 20, 'rating': 66},
-  {'name': 'Adel Lembezat', 'position': 'Milieu', 'club': 'Dijon FCO', 'age': 26, 'rating': 67},
-  // Attaquants
-  {'name': 'Moussa Konaté', 'position': 'Attaquant', 'club': 'Dijon FCO', 'age': 31, 'rating': 73},
-  {'name': 'Xande Silva', 'position': 'Attaquant', 'club': 'Dijon FCO', 'age': 27, 'rating': 72},
-  {'name': 'Kevin Schur', 'position': 'Attaquant', 'club': 'Dijon FCO', 'age': 34, 'rating': 70},
-  {'name': 'Júlio Tavares', 'position': 'Attaquant', 'club': 'Dijon FCO', 'age': 36, 'rating': 76},
-  {'name': 'Joseph Mendes', 'position': 'Attaquant', 'club': 'Dijon FCO', 'age': 33, 'rating': 71},
+  {'name': 'Daniel Congré', 'position': 'Défenseur', 'club': 'Dijon FCO', 'age': 40, 'rating': 75, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=30', 'logo': 'https://ui-avatars.com/api/?name=DFCO&background=DC2626&color=fff'},
+  {'name': 'Bersant Celina', 'position': 'Milieu', 'club': 'Dijon FCO', 'age': 28, 'rating': 74, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=31', 'logo': 'https://ui-avatars.com/api/?name=DFCO&background=DC2626&color=fff'},
+  {'name': 'Moussa Konaté', 'position': 'Attaquant', 'club': 'Dijon FCO', 'age': 31, 'rating': 73, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=32', 'logo': 'https://ui-avatars.com/api/?name=DFCO&background=DC2626&color=fff'},
+  {'name': 'Júlio Tavares', 'position': 'Attaquant', 'club': 'Dijon FCO', 'age': 36, 'rating': 76, 'status': 'Sous Contrat', 'photo': 'https://i.pravatar.cc/150?img=33', 'logo': 'https://ui-avatars.com/api/?name=DFCO&background=DC2626&color=fff'},
 ];
