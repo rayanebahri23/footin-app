@@ -20,6 +20,10 @@ flutter config --no-analytics
 echo "🌍 Enabling Web..."
 flutter config --enable-web
 
+# Initialize Web Project (Critical: Generates web/ folder since it's missing in repo)
+echo "🔧 Initializing Web Platform..."
+flutter create . --platforms web
+
 # Get Dependencies
 echo "📦 Installing Dependencies..."
 flutter pub get
