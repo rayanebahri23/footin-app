@@ -22,13 +22,17 @@ flutter config --no-analytics
 echo "🌍 Enabling Web..."
 flutter config --enable-web
 
+# Initialize Web Platform (Generates missing structure like icons)
+echo "🔧 Initializing Web Platform..."
+flutter create . --platforms web
+
 # Get Dependencies
 echo "📦 Installing Dependencies..."
 flutter pub get
 
 # Build
 echo "🚀 Building for Web..."
-flutter build web --release --no-tree-shake-icons
+flutter build web --release
 
 # Force Overwrite index.html with manual version (Critical Fix)
 echo "🛡️ Forcing use of manual index.html..."
