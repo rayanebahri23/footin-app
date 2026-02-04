@@ -10,11 +10,11 @@ else
 fi
 
 # Add local Flutter to PATH
-export PATH="$PATH:`pwd`/flutter/bin"
+export PATH="$PATH:$(pwd)/flutter/bin"
 
-# Diagnostics
-echo "🔍 Flutter Environment:"
-flutter doctor -v
+# Disable Analytics (Prevents "Welcome to Flutter" interactive hang)
+echo "🔇 Disabling Analytics..."
+flutter config --no-analytics
 
 # Enable Web
 echo "🌍 Enabling Web..."
